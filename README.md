@@ -12,7 +12,7 @@ contact_manager/
 
 ### model.py
 
-Le fichier `model.py` contient la logique métier et les interactions avec les données.
+Le modèle (Model) représente les données de l'application et la logique métier. 
 
 ```python
 class Contact:
@@ -32,12 +32,15 @@ class ContactModel:
         return self.contacts
 
     def delete_contact(self, email):
-        self.contacts = [contact for contact in self.contacts if contact.email != email]
+        self.contacts = [contact for contact in self.contacts si contact.email != email]
 ```
+
+- `Contact` : Classe représentant un contact avec des attributs `name` et `email`.
+- `ContactModel` : Classe gérant la liste des contacts, avec des méthodes pour ajouter (`add_contact`), obtenir (`get_contacts`), et supprimer (`delete_contact`) des contacts.
 
 ### view.py
 
-Le fichier `view.py` contient l'interface utilisateur.
+La vue (View) représente l'interface utilisateur de l'application.
 
 ```python
 import tkinter as tk
@@ -84,11 +87,19 @@ class ContactView:
         self.email_entry.delete(0, tk.END)
 ```
 
+- `ContactView` : Classe gérant l'interface utilisateur avec `tkinter`.
+  - `get_contact_info` : Récupère les informations saisies par l'utilisateur.
+  - `show_contacts` : Affiche la liste des contacts.
+  - `show_message` : Affiche un message d'information.
+  - `clear_entries` : Efface les champs de saisie.
+
 ### controller.py
 
-Le fichier `controller.py` contient la logique de contrôle entre le modèle et la vue.
+Le contrôleur (Controller) gère la logique de contrôle entre le modèle et la vue.
 
 ```python
+import tkinter as tk
+
 class ContactController:
     def __init__(self, model, view):
         self.model = model
@@ -122,9 +133,14 @@ class ContactController:
         self.view.show_contacts(contacts)
 ```
 
+- `ContactController` : Classe gérant les interactions entre le modèle et la vue.
+  - `add_contact` : Ajoute un contact en utilisant les informations saisies dans la vue et met à jour la vue.
+  - `delete_contact` : Supprime un contact sélectionné dans la vue et met à jour la vue.
+  - `update_view` : Met à jour la vue avec la liste des contacts.
+
 ### main.py
 
-Le fichier `main.py` lance l'application.
+Le fichier `main.py` initialise le modèle, la vue et le contrôleur, et lance l'application `tkinter`.
 
 ```python
 import tkinter as tk
@@ -140,11 +156,10 @@ if __name__ == "__main__":
     root.mainloop()
 ```
 
-### Explications
+### Explications supplémentaires
 
-- **model.py** : Contient la définition de la classe `Contact` et la logique métier dans la classe `ContactModel`.
-- **view.py** : Contient la définition de l'interface utilisateur avec `tkinter`.
-- **controller.py** : Gère les interactions entre le modèle et la vue, en implémentant les méthodes pour ajouter et supprimer des contacts.
-- **main.py** : Initialise le modèle, la vue et le contrôleur, et lance l'application `tkinter`.
+- **Model (Modèle)** : Représente les données et la logique métier. Dans notre cas, `ContactModel` gère les contacts.
+- **View (Vue)** : Représente l'interface utilisateur. Dans notre cas, `ContactView` gère l'affichage et les interactions avec l'utilisateur.
+- **Controller (Contrôleur)** : Gère les interactions entre le modèle et la vue. Dans notre cas, `ContactController` gère la logique pour ajouter et supprimer des contacts et met à jour la vue.
 
-En lançant `main.py`, vous aurez une application graphique simple permettant d'ajouter et de supprimer des contacts, démontrant ainsi le pattern MVC en action.
+Ce pattern sépare clairement les responsabilités, rendant le code plus maintenable et extensible. En lançant `main.py`, vous aurez une application graphique simple permettant d'ajouter et de supprimer des contacts, démontrant ainsi le pattern MVC en action.
